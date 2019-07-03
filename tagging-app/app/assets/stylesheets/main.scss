@@ -6,6 +6,16 @@ $main-font: 'Bitter', serif;
   background: linear-gradient(135deg, #ff3019 0%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
+@mixin red-popup-gradient() {
+  background: rgba(239,197,202,1);
+  background: -moz-linear-gradient(top, rgba(239,197,202,0.8) 0%, rgba(210,75,90,0.8) 50%, rgba(186,39,55,0.8) 51%, rgba(241,142,153,0.8) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(239,197,202,0.8)), color-stop(50%, rgba(210,75,90,0.8)), color-stop(51%, rgba(186,39,55,0.8)), color-stop(100%, rgba(241,142,153,0.8)));
+  background: -webkit-linear-gradient(top, rgba(239,197,202,0.8) 0%, rgba(210,75,90,0.8) 50%, rgba(186,39,55,0.8) 51%, rgba(241,142,153,0.8) 100%);
+  background: -o-linear-gradient(top, rgba(239,197,202,0.8) 0%, rgba(210,75,90,0.8) 50%, rgba(186,39,55,0.8) 51%, rgba(241,142,153,0.8) 100%);
+  background: -ms-linear-gradient(top, rgba(239,197,202,0.8) 0%, rgba(210,75,90,0.8) 50%, rgba(186,39,55,0.8) 51%, rgba(241,142,153,0.8) 100%);
+  background: linear-gradient(to bottom, rgba(239,197,202,0.8) 0%, rgba(210,75,90,0.8) 50%, rgba(186,39,55,0.8) 51%, rgba(241,142,153,0.8) 100%);
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -52,9 +62,35 @@ html, body {
 .main-img-container {
   text-align: center;
   position:relative;
-  img {
+  .img-wrapper {
     height: 600px;
     width: 900px;
+    margin: auto;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+    .pointer-wrapper {
+      position: absolute;
+      .on-hover-pointer {
+        width: 80px;
+        height: 80px;
+        box-shadow: 0 -1px 8px 10px rgba(0,0,0,0.75);
+      }
+      .pop-up {
+        @include red-popup-gradient;
+        font-family: $main-font;
+        color: rgb(255,255,255);
+        opacity:0.85;
+        transition:opacity 0.3s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .first-popup {
+        margin-top: 8px;
+      }
+    }
   }
   h1 {
     font-family: $main-font;
