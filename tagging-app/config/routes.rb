@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   post '/', to: 'user#new'
   get '/lastuser', to: 'user#lastid'
   put '/users/:id', to: 'user#update'
+  get '/bestusers', to: 'main#users'
 end

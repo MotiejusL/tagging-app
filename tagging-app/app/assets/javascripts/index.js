@@ -9,10 +9,13 @@ document.addEventListener("turbolinks:load", function() {
   const header = document.getElementsByClassName("header")[0];
   const footer = document.getElementsByClassName("footer")[0];
   const container = document.getElementsByClassName("container")[0];
+  const bestList = document.getElementsByClassName("best-list")[0];
   let alreadyFound = [];
   let timerInterval;
-  let lastID;
+  let lastID = 1;
   let globalSeconds = 0;
+  let bestTimes = [];
+  let sortedBestTimes = [];
   let pointerWrapper = document.createElement("div");
   pointerWrapper.classList.add("pointer-wrapper");
   let div = document.createElement("div");
@@ -20,12 +23,78 @@ document.addEventListener("turbolinks:load", function() {
   div.classList.add("on-hover-pointer");
   pointerWrapper.appendChild(div);
   img.appendChild(pointerWrapper);
-  getUsersLastId();
   checkIfLoginHidden();
+  getBestTimes();
+
+  function fillBestUserList() {
+    removeTableRows(bestList);
+    bestTimes.forEach(function (element, index) {
+      if (index < 5) {
+        const newTr = document.createElement("tr");
+        const newThName = document.createElement("th");
+        newThName.innerHTML = element.name;
+        const newThScore = document.createElement("th");
+        newThScore.innerHTML = element.besttime + " s";
+        newTr.appendChild(newThName);
+        newTr.appendChild(newThScore);
+        bestList.appendChild(newTr);
+      }
+    })
+  }
+
+  function removeTableRows(table) {
+    while (table.rows.length > 1) {
+      table.deleteRow(table.rows.length - 1);
+    }
+  }
+
+  function getBestTimes() {
+    Rails.ajax({
+      url: "/bestusers",
+      type: "GET",
+      beforeSend: function() {
+        return true;
+      },
+      success: function(response) {
+        if (response.users != []) {
+          bestTimes = deleteNullTimes(response.users);
+          sortedBestTimes = sortByTime(bestTimes);
+          fillBestUserList();
+        }
+      },
+      error: function(response) {
+        alert("error");
+      }
+    })
+  }
+
+  function sortByTime(array) {
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array.length; j++) {
+        if (array[i].besttime < array[j].besttime) {
+          temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+      }
+    }
+    return array;
+  }
+
+  function deleteNullTimes(array) {
+    let newArray = [];
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].besttime != null) {
+        newArray.push(array[i]);
+      }
+    }
+    return newArray;
+  }
 
   function checkIfLoginHidden() {
     if (sessionStorage.getItem("alreadySet") == "true") {
       makeVisibleAndRunning();
+      lastID = sessionStorage.getItem("ID");
     }
   }
 
@@ -37,7 +106,12 @@ document.addEventListener("turbolinks:load", function() {
         return true;
       },
       success: function(response) {
-        lastID = response.lastId + 1;
+        if (response.lastId != undefined) {
+          lastID = response.lastId + 1;
+          sessionStorage.setItem("ID", lastID);
+        } else {
+          sessionStorage.setItem("ID", lastID);
+        }
       },
       error: function(response) {
         alert('error');
@@ -55,7 +129,6 @@ document.addEventListener("turbolinks:load", function() {
   }
 
   function moveMousePointer(e) {
-    console.log(e.pageX + "  " + e.pageY);
     const margins = 110;
     if (e.pageX >= (window.innerWidth - 900) / 2 + 25 && e.pageX <= window.innerWidth - ((window.innerWidth - 900) / 2) - 50 && e.pageY >= header.clientHeight + timerDiv.clientHeight + h1.clientHeight + margins && e.pageY <= header.clientHeight + timerDiv.clientHeight + h1.clientHeight + 625) {
       pointerWrapper.hidden = false;
@@ -120,7 +193,7 @@ document.addEventListener("turbolinks:load", function() {
             setTimeout(function() {
               foundIt.style.opacity = "0";
             }, 2000)
-            if (alreadyFound.includes(response.foundName) == false) {
+            if (alreadyFound.includes(response.foundName) == false && response.foundIt == true) {
               alreadyFound.push(response.foundName);
             }
             if (alreadyFound.length == characters.length) {
@@ -132,10 +205,12 @@ document.addEventListener("turbolinks:load", function() {
                   return true;
                 },
                 success: function(response) {
-                  alert("good");
                   clearInterval(timerInterval);
                   timerInterval = timeCount(timerDiv);
                   globalSeconds = 0;
+                  alreadyFound = [];
+                  getBestTimes()
+                  fillBestUserList();
                 },
                 error: function(response) {
                   alert("error");
@@ -164,5 +239,6 @@ document.addEventListener("turbolinks:load", function() {
   submit.addEventListener("click", function() {
     sessionStorage.setItem("alreadySet", "true");
     makeVisibleAndRunning();
+    getUsersLastId();
   })
 })
