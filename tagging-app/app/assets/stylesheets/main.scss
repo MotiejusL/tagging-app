@@ -21,6 +21,49 @@ html, body {
   padding: 0;
 }
 
+.header, .footer, .container:not(.login) {
+  opacity:0.2;
+}
+
+.login {
+  border-radius: 5px;
+  width: 35%;
+  height: 200px;
+  position: fixed;
+  top: 30%;
+  background-color: red;
+  left: 32.5%;
+  right: 32.5%;
+  text-align: center;
+  padding-top: 30px;
+  color: rgb(255,255,255);
+  font-family: $main-font;
+  input {
+    width: 55%;
+    font-family: $main-font;
+    font-size: 18px;
+    padding-left: 5px;
+  }
+  #submit {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    color: rgb(255,255,255);
+    font-family: $main-font;
+    background-color: rgb(128,128,128);
+    border: none;
+    height: 22px;
+    font-size: 15px;
+    &:hover {
+      background-color: rgb(105,105,105);
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 *,*::after,*::before {
   box-sizing: border-box;
 }
@@ -62,6 +105,9 @@ html, body {
 .main-img-container {
   text-align: center;
   position:relative;
+  h2 {
+    font-family: $main-font;
+  }
   .img-wrapper {
     height: 600px;
     width: 900px;

@@ -7,5 +7,12 @@
     </div>
   </div>
 </div>
+<div class="login">
+  <h2>Please enter your name<h2>
+  <%= form_tag do %>
+    <%= text_field_tag "username" %>
+    <%= submit_tag "Confirm", :id => "submit" %>
+  <% end %>
+</div>
 <div class="foundIt">
 </div>
