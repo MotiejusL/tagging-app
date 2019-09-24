@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  cordinateX: 1
+  cordinateY: 1
+  images: 
+
+two:
+  name: MyString
+  cordinateX: 1
+  cordinateY: 1
+  images: 

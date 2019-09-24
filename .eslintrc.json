@@ -1,0 +1,21 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+      "browser":  true,
+      "node": true,
+      "jasmine": true
+    },
+    "rules": {
+      "no-use-before-define": ["error", { "functions": false }],
+      "no-console": "off",
+      "prefer-destructuring": ["error", {
+        "array": false,
+        "object": false
+        }, {
+          "enforceForRenamedProperties": false
+        }]
+    },
+    "globals": {
+      "Rails": "writable"
+    }
+}
