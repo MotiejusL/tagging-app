@@ -1,0 +1,184 @@
+$main-font: 'Bitter', serif;
+@mixin red-gradient() {
+  background: #ff3019; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #ff3019 0%, #cf0404 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #ff3019 0%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #ff3019 0%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+@mixin red-popup-gradient($opacity) {
+  background: rgba(239,197,202,1);
+  background: -moz-linear-gradient(top, rgba(239,197,202,$opacity) 0%, rgba(210,75,90,$opacity) 50%, rgba(186,39,55,$opacity) 51%, rgba(241,142,153,$opacity) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(239,197,202,$opacity)), color-stop(50%, rgba(210,75,90,$opacity)), color-stop(51%, rgba(186,39,55,$opacity)), color-stop(100%, rgba(241,142,153,$opacity)));
+  background: -webkit-linear-gradient(top, rgba(239,197,202,$opacity) 0%, rgba(210,75,90,$opacity) 50%, rgba(186,39,55,$opacity) 51%, rgba(241,142,153,$opacity) 100%);
+  background: -o-linear-gradient(top, rgba(239,197,202,$opacity) 0%, rgba(210,75,90,$opacity) 50%, rgba(186,39,55,$opacity) 51%, rgba(241,142,153,$opacity) 100%);
+  background: -ms-linear-gradient(top, rgba(239,197,202,$opacity) 0%, rgba(210,75,90,$opacity) 50%, rgba(186,39,55,$opacity) 51%, rgba(241,142,153,$opacity) 100%);
+  background: linear-gradient(to bottom, rgba(239,197,202,$opacity) 0%, rgba(210,75,90,$opacity) 50%, rgba(186,39,55,$opacity) 51%, rgba(241,142,153,$opacity) 100%);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.header, .footer, .container:not(.login) {
+  opacity:0.2;
+}
+
+.login {
+  border-radius: 5px;
+  width: 35%;
+  height: 200px;
+  position: fixed;
+  top: 30%;
+  background-color: red;
+  left: 32.5%;
+  right: 32.5%;
+  text-align: center;
+  padding-top: 30px;
+  color: rgb(255,255,255);
+  font-family: $main-font;
+  input {
+    width: 55%;
+    font-family: $main-font;
+    font-size: 18px;
+    padding-left: 5px;
+  }
+  #submit {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    color: rgb(255,255,255);
+    font-family: $main-font;
+    background-color: rgb(128,128,128);
+    border: none;
+    height: 22px;
+    font-size: 15px;
+    &:hover {
+      background-color: rgb(105,105,105);
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+*,*::after,*::before {
+  box-sizing: border-box;
+}
+.header {
+  height: 120px;
+  @include red-gradient();
+  box-shadow: 0 6px 9px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0 6px 9px -4px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0 6px 9px -4px rgba(0,0,0,0.75);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 45px;
+  h1 {
+    color: rgb(255,255,255);
+    margin: 0;
+    font-size: 40px;
+    font-family: $main-font;
+    letter-spacing: 1.5px;
+  }
+}
+
+.footer {
+  -webkit-box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.75);
+  margin-top: 45px;
+  bottom: 0;
+  height: 90px;
+  width: 100%;
+  @include red-gradient();
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.main-img-container {
+  text-align: center;
+  position:relative;
+  h2 {
+    font-family: $main-font;
+  }
+  .img-wrapper {
+    height: 600px;
+    width: 900px;
+    margin: auto;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+    .pointer-wrapper {
+      position: absolute;
+      .on-hover-pointer {
+        width: 80px;
+        height: 80px;
+        box-shadow: 0 -1px 8px 10px rgba(0,0,0,0.75);
+      }
+      .pop-up {
+        @include red-popup-gradient(0.7);
+        font-family: $main-font;
+        color: rgb(255,255,255);
+        transition:opacity 0.3s;
+        height: 25px;
+        line-height: 25px;
+        &:hover {
+          @include red-popup-gradient(0.9);
+        }
+      }
+      .first-popup {
+        margin-top: 8px;
+      }
+    }
+  }
+  h1 {
+    font-family: $main-font;
+  }
+}
+
+.foundIt {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  opacity: 0;
+  color: rgb(255,255,255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $main-font;
+  font-size: 35px;
+  transition: opacity 0.8s;
+}
+
+.highscores {
+  font-family: $main-font;
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 5px;;
+}
+.scores {
+  font-family: $main-font;
+  font-size: 23px;
+  display: flex;
+  justify-content: center;
+  .best-list {
+    tr {
+      th {
+        padding: 5px;
+      }
+    }
+  }
+}
+
+.main-font {
+  font-family: $main-font;
+}
