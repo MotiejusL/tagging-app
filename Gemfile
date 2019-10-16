@@ -27,6 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'autoprefixer-rails'
 gem 'font_awesome5_rails'
+gem 'pg'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

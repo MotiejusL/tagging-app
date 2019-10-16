@@ -119,7 +119,6 @@ html, body {
     position: relative;
     width: 100%;
     max-height: 740px;
-    box-shadow: 0 0 7px rgb(0,0,0);
     .opacity-zero {
       opacity: 0;
     }
@@ -135,7 +134,8 @@ html, body {
     opacity: 1;
     max-height: 740px;
     object-fit: cover;
-    object-position: bottom;
+    object-position: center;
+    box-shadow: 0 0 7px rgb(0,0,0);
     transition: opacity 0.8s ease-in-out;
   }
   img:nth-of-type(2) {
@@ -148,7 +148,8 @@ html, body {
     width: 100%;
     max-height: 740px;
     object-fit:cover;
-    object-position: bottom;
+    object-position: center;
+    box-shadow: 0 0 7px rgb(0,0,0);
     transition: opacity 0.8s ease-in-out;
   }
   .img-wrapper {
@@ -183,13 +184,16 @@ html, body {
         box-shadow: 0 -1px 8px 10px rgba(0,0,0,0.75);
       }
       .pop-up {
-        @include red-popup-gradient(0.7);
+        @include red-popup-gradient(0.8);
         color: rgb(255,255,255);
         transition:opacity 0.3s;
-        height: 25px;
-        line-height: 25px;
+        height: 32px;
+        line-height: 32px;
+        text-shadow: 1px 1px 2px #000000;
+        @include font-size(19);
+        cursor: pointer;
         &:hover {
-          @include red-popup-gradient(0.9);
+          @include red-popup-gradient(0.95);
         }
       }
       .first-popup {

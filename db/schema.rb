@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema.define(version: 20190923123510) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "best_scores", force: :cascade do |t|
     t.float "score"
-    t.integer "image_id"
-    t.integer "user_id"
+    t.bigint "image_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_best_scores_on_image_id"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 20190923123510) do
     t.string "name"
     t.integer "cordinateX"
     t.integer "cordinateY"
-    t.integer "image_id"
+    t.bigint "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_characters_on_image_id"

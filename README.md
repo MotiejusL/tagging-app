@@ -1,24 +1,8 @@
-# README
+## Tagging app
+Tagging app project is a game created using javascript and ruby framework Ruby On Rails for the backend.
+It lets players to choose an image and then asks them to find hidden characters in them. After all the characters are found player is being put in highscores list.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Features
+- Player has to enter a name to play
+- Players can choose different images
+- Shows a highscores list for top 5 players

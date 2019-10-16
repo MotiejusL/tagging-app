@@ -231,6 +231,7 @@ document.addEventListener('turbolinks:load', () => {
       const header = e.currentTarget.header;
       const timerDiv = e.currentTarget.timerDiv;
       const margin = 110;
+      img.addEventListener('click', showPopUpMenu);
       if (e.pageX >= window.innerWidth - (window.innerWidth * 0.9) + 40
       && e.pageX <= window.innerWidth - (window.innerWidth * 0.1) - 52
       && e.pageY >= header.clientHeight + timerDiv.clientHeight + textHeader.clientHeight + margin
@@ -248,7 +249,9 @@ document.addEventListener('turbolinks:load', () => {
     }
 
     function timeCount(timersDiv) {
+      const timersDivParam = timersDiv;
       timersDiv.classList.add('main-font');
+      timersDivParam.textContent = '00:00:00';
       const timer = { seconds: 0, minutes: 0, hours: 0 };
       timerInterval = setInterval(secondTick, 1000, timer, timersDiv);
       return timerInterval;
@@ -272,6 +275,7 @@ document.addEventListener('turbolinks:load', () => {
     img.addEventListener('click', showPopUpMenu);
 
     function showPopUpMenu(imgElement) {
+      img.removeEventListener('click', showPopUpMenu);
       const timerDiv = imgElement.currentTarget.timerDiv;
       characters.forEach((element, index) => {
         const selectDiv = document.createElement('div');
@@ -290,7 +294,7 @@ document.addEventListener('turbolinks:load', () => {
 
     function sendCordinates(e) {
       const timerDiv = e.currentTarget.timerDiv;
-      e.cancelBubble = true;
+      e.stopPropagation();
       const selectDiv = e.currentTarget;
       const imgElement = selectDiv.imgElement;
       const imageY = imgToSet.clientHeight;
